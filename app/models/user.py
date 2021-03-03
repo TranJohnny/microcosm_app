@@ -2,6 +2,7 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+from .subscription import Subscription
 
 
 class User(db.Model, UserMixin):
@@ -18,6 +19,21 @@ class User(db.Model, UserMixin):
     exp = db.Column(db.Integer, nullable=False, default=0)
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime)
+
+    stories = db.relationship(
+        "Story", back_populates="users", cascade="all, delete-orphan")
+    likes = db.relationship("Like", cascade="all, delete-orphan")
+    comments = db.relationship("Comment", cascade="all, delete-orphan")
+    following = db.relationship(
+        "Subscription",
+        primaryjoin=(Subscription.follower_id == id),
+        secondaryjoin=(Subscription.creator_id == id),
+        back_populates='users', cascade="all, delete-orphan")
+    followers = db.relationship(
+        "Subscription",
+        primaryjoin=(Subscription.creator_id == id),
+        secondaryjoin=(Subscription.follower_id == id),
+        back_populates='users', cascade="all, delete-orphan")
 
     @property
     def password(self):
@@ -40,3 +56,17 @@ class User(db.Model, UserMixin):
             "exp": self.exp,
             "created_at": self.created_at
         }
+
+    def follow(self, user):
+        if not self.is_following(user):
+            self.following.append(user)
+            return self
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.following.remove(user)
+            return self
+
+    def is_following(self, user):
+        return self.following.filter(Subscription.follower_id
+                                     == user.id).count() > 0

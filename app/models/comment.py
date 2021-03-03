@@ -11,4 +11,4 @@ class Comment(db.Model):
     comment_type = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.now())
 
-    user = db.relationship("User", back_populates="likes")
+    user = db.relationship("User", back_populates="comments")

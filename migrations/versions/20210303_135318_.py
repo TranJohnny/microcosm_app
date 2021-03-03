@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 01a62e3aa758
-Revises: a5111aafd7ce
-Create Date: 2021-03-03 12:48:18.453659
+Revision ID: 7cc9ae9b046b
+Revises:
+Create Date: 2021-03-03 13:53:18.364367
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '01a62e3aa758'
-down_revision = 'a5111aafd7ce'
+revision = '7cc9ae9b046b'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -23,6 +23,35 @@ def upgrade():
                     sa.Column('type', sa.String(), nullable=False),
                     sa.PrimaryKeyConstraint('id')
                     )
+    op.create_table('subscription_tiers',
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('subscription_id', sa.String(
+                        length=20), nullable=False),
+                    sa.Column('tier', sa.Integer(), nullable=True),
+                    sa.Column('created_at', sa.DateTime(), nullable=True),
+                    sa.Column('updated_at', sa.DateTime(), nullable=True),
+                    sa.PrimaryKeyConstraint('id')
+                    )
+    op.create_table('users',
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('username', sa.String(
+                        length=40), nullable=False),
+                    sa.Column('first_name', sa.String(
+                        length=40), nullable=False),
+                    sa.Column('last_name', sa.String(
+                        length=40), nullable=False),
+                    sa.Column('email', sa.String(length=255), nullable=False),
+                    sa.Column('hashed_password', sa.String(
+                        length=255), nullable=False),
+                    sa.Column('coins', sa.Integer(), nullable=False),
+                    sa.Column('level', sa.Integer(), nullable=False),
+                    sa.Column('exp', sa.Integer(), nullable=False),
+                    sa.Column('created_at', sa.DateTime(), nullable=True),
+                    sa.Column('updated_at', sa.DateTime(), nullable=True),
+                    sa.PrimaryKeyConstraint('id'),
+                    sa.UniqueConstraint('email'),
+                    sa.UniqueConstraint('username')
+                    )
     op.create_table('comments',
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -30,10 +59,15 @@ def upgrade():
                     sa.Column('comment_type', sa.String(), nullable=True),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.ForeignKeyConstraint(
-                        ['user_id'], ['users.id'],
-                        onupdate='CASCADE',
+                        ['user_id'], ['users.id'], onupdate='CASCADE',
                         ondelete='CASCADE'),
                     sa.PrimaryKeyConstraint('id')
+                    )
+    op.create_table('followers',
+                    sa.Column('follower_id', sa.Integer(), nullable=True),
+                    sa.Column('followed_id', sa.Integer(), nullable=True),
+                    sa.ForeignKeyConstraint(['followed_id'], ['users.id'], ),
+                    sa.ForeignKeyConstraint(['follower_id'], ['users.id'], )
                     )
     op.create_table('likes',
                     sa.Column('id', sa.Integer(), nullable=False),
@@ -42,8 +76,7 @@ def upgrade():
                     sa.Column('like_type', sa.String(), nullable=True),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.ForeignKeyConstraint(
-                        ['user_id'], ['users.id'],
-                        onupdate='CASCADE',
+                        ['user_id'], ['users.id'], onupdate='CASCADE',
                         ondelete='CASCADE'),
                     sa.PrimaryKeyConstraint('id')
                     )
@@ -56,25 +89,7 @@ def upgrade():
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.Column('updated_at', sa.DateTime(), nullable=True),
                     sa.ForeignKeyConstraint(
-                        ['author_id'], ['users.id'],
-                        onupdate='CASCADE',
-                        ondelete='CASCADE'),
-                    sa.PrimaryKeyConstraint('id')
-                    )
-    op.create_table('subscriptions',
-                    sa.Column('id', sa.Integer(), nullable=False),
-                    sa.Column('follower_id', sa.Integer(), nullable=False),
-                    sa.Column('creator_id', sa.Integer(), nullable=False),
-                    sa.Column('tier', sa.Integer(), nullable=True),
-                    sa.Column('created_at', sa.DateTime(), nullable=True),
-                    sa.Column('updated_at', sa.DateTime(), nullable=True),
-                    sa.ForeignKeyConstraint(
-                        ['creator_id'], ['users.id'],
-                        onupdate='CASCADE',
-                        ondelete='CASCADE'),
-                    sa.ForeignKeyConstraint(
-                        ['follower_id'], ['users.id'],
-                        onupdate='CASCADE',
+                        ['author_id'], ['users.id'], onupdate='CASCADE',
                         ondelete='CASCADE'),
                     sa.PrimaryKeyConstraint('id')
                     )
@@ -88,12 +103,10 @@ def upgrade():
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.Column('updated_at', sa.DateTime(), nullable=True),
                     sa.ForeignKeyConstraint(
-                        ['format_id'], ['formats.id'],
-                        onupdate='CASCADE',
+                        ['format_id'], ['formats.id'], onupdate='CASCADE',
                         ondelete='CASCADE'),
                     sa.ForeignKeyConstraint(
-                        ['story_id'], ['stories.id'],
-                        onupdate='CASCADE',
+                        ['story_id'], ['stories.id'], onupdate='CASCADE',
                         ondelete='CASCADE'),
                     sa.PrimaryKeyConstraint('id')
                     )
@@ -103,9 +116,11 @@ def upgrade():
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_table('micro_stories')
-    op.drop_table('subscriptions')
     op.drop_table('stories')
     op.drop_table('likes')
+    op.drop_table('followers')
     op.drop_table('comments')
+    op.drop_table('users')
+    op.drop_table('subscription_tiers')
     op.drop_table('formats')
     # ### end Alembic commands ###

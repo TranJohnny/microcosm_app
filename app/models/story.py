@@ -13,5 +13,5 @@ class Story(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime)
 
-    author = db.relationship("User", back_populates="stories")
+    users = db.relationship("User", back_populates="stories")
     micro_stories = db.relationship("Micro_Story", back_populates="stories")

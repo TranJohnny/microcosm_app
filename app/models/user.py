@@ -2,7 +2,16 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
-from .subscription import Subscription
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+followers = db.Table('followers',
+                     db.Column('follower_id', db.Integer,
+                               db.ForeignKey('users.id')),
+                     db.Column('followed_id', db.Integer,
+                               db.ForeignKey('users.id'))
+                     )
 
 
 class User(db.Model, UserMixin):
@@ -24,16 +33,14 @@ class User(db.Model, UserMixin):
         "Story", back_populates="users", cascade="all, delete-orphan")
     likes = db.relationship("Like", cascade="all, delete-orphan")
     comments = db.relationship("Comment", cascade="all, delete-orphan")
-    following = db.relationship(
-        "Subscription",
-        primaryjoin=(Subscription.follower_id == id),
-        secondaryjoin=(Subscription.creator_id == id),
-        back_populates='users', cascade="all, delete-orphan")
-    followers = db.relationship(
-        "Subscription",
-        primaryjoin=(Subscription.creator_id == id),
-        secondaryjoin=(Subscription.follower_id == id),
-        back_populates='users', cascade="all, delete-orphan")
+    followed = db.relationship(
+        "User",
+        secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'),
+        lazy='dynamic'
+    )
 
     @property
     def password(self):
@@ -59,14 +66,14 @@ class User(db.Model, UserMixin):
 
     def follow(self, user):
         if not self.is_following(user):
-            self.following.append(user)
+            self.followed.append(user)
             return self
 
     def unfollow(self, user):
         if self.is_following(user):
-            self.following.remove(user)
+            self.followed.remove(user)
             return self
 
     def is_following(self, user):
-        return self.following.filter(Subscription.follower_id
-                                     == user.id).count() > 0
+        return self.followed.filter(followers.c.followed_id
+                                    == user.id).count() > 0

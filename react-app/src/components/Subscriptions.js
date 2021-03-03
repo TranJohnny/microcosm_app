@@ -16,9 +16,10 @@ function User() {
     (async () => {
       const response = await fetch(`/api/users/${userId}/subscriptions`);
       const subscriptions = await response.json();
+      console.log('RESPONSE', subscriptions);
       setSubscriptions(subscriptions);
     })();
-  }, [userId]);
+  }, []);
 
   if (!subscriptions) {
     return null;

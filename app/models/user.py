@@ -64,6 +64,10 @@ class User(db.Model, UserMixin):
             "created_at": self.created_at
         }
 
+    def followed_users(self):
+        subscriptions = User.query.join(followers, (followers.c.followed_id == User.id)).filter(followers.c.follower_id == self.id)  # noqa
+        return subscriptions
+
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
@@ -77,3 +81,6 @@ class User(db.Model, UserMixin):
     def is_following(self, user):
         return self.followed.filter(followers.c.followed_id
                                     == user.id).count() > 0
+
+    def followed_stories(self):
+        return Story.query.join(followers, (followers.c.followed_id == Story.user_id)).filter(followers.c.follower_id == self.id).order_by(Story.created_at.desc())  # noqa

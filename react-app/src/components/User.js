@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function User() {
@@ -48,6 +48,11 @@ function User() {
         </li>
         <li>
           <strong>Email</strong> {user.email}
+        </li>
+        <li>
+          <NavLink to={`/users/${userId}/subscriptions`} exact={true} activeClassName="active">
+            Subscriptions
+          </NavLink>
         </li>
       </ul>
       <button onClick={followUser}>Follow User</button>

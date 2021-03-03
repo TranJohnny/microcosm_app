@@ -23,8 +23,12 @@ def user(id):
 @login_required
 def subscriptions(id):
     user = User.query.get(id)
-    subscriptions = user.followed
-    return subscriptions
+    subscriptions = user.followed_users().all()
+    print('Hello,', subscriptions)
+    response = {}
+    for each in subscriptions:
+        response[each.to_dict()['id']] = (each.to_dict())
+    return response
 
 
 @user_routes.route('/<int:id>/followers', methods=['POST'])
@@ -34,6 +38,8 @@ def follow_user(id):
     follower = User.query.get(data['id'])
     user = User.query.get(id)
     res = follower.follow(user)
+    if res is None:
+        return {"error": "Uh oh, something went wrong."}
     db.session.add(res)
     db.session.commit()
     return {"message": "Follow successful!"}

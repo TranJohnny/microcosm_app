@@ -4,9 +4,9 @@ from app.models import db, Micro_Story
 # Adds a demo user, you can add other users here if you want
 
 
-def seed_stories():
+def seed_micro_stories():
 
-    demoStories = [
+    demo_micro_stories = [
         # My First Story
         Micro_Story(title="My First Micro_Story", part=1,
                     content="This is my first micro story.",
@@ -45,12 +45,12 @@ def seed_stories():
         Micro_Story(title="Young Sapling", part=1,
                     content="Cold winter sapling. So easily trampled now. Rise into the sky.",  # noqa
                     story_id=7,
-                    format_id=1),
+                    format_id=2),
         # Limerick
         Micro_Story(title="Fantastic Mr. Fox", part=1,
                     content="Boggis, Bunce, and Bean; One fat, one short, one lean. These horrible crooks, so different in looks, are nonetheless equally mean...",  # noqa
                     story_id=8,
-                    format_id=1),
+                    format_id=2),
         # Power
         Micro_Story(title="Awakening", part=1,
                     content="When she stepped out of bed, her feet did not touch the ground.",  # noqa
@@ -86,11 +86,11 @@ def seed_stories():
         Micro_Story(title="On Mars", part=1,
                     content="He didn't believe me when I said the sky was green on Mars. That there was life on Mars. That water ran on Mars. After all, he didn't believe that I had been on Mars.",  # noqa
                     story_id=12,
-                    format_id=1),
+                    format_id=2),
     ]
 
-    for story in demoStories:
-        db.session.add(story)
+    for micro_story in demo_micro_stories:
+        db.session.add(micro_story)
 
     db.session.commit()
 
@@ -100,6 +100,6 @@ def seed_stories():
 # the auto incrementing primary key
 
 
-def undo_stories():
-    db.session.execute('TRUNCATE stories CASCADE;')
+def undo_micro_stories():
+    db.session.execute('TRUNCATE micro_stories CASCADE;')
     db.session.commit()

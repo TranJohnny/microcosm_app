@@ -79,7 +79,7 @@ class User(db.Model, UserMixin):
         return Micro_Story.query\
             .join(Story, (Story.id == Micro_Story.story_id))\
             .join(followers, (Story.author_id == followers.c.followed_id))\
-            .filter(followers.c.follower_id == self.id, followers.c.tier >= Story.tier)  # noqa
+            .filter(followers.c.follower_id == self.id, followers.c.tier >= Story.tier).order_by(Micro_Story.created_at.desc())  # noqa
 
     def follow(self, user):
         if not self.is_following(user):

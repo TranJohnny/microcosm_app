@@ -29,7 +29,7 @@ function Timeline() {
       <ul>
         {Object.values(microStories).map((microStory) => {
           return (
-            <li>
+            <li key={microStory.id}>
               <ul>
                 {microStory.title}
                 <li>{microStory.content}</li>

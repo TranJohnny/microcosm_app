@@ -16,7 +16,6 @@ function User() {
     (async () => {
       const response = await fetch(`/api/users/${userId}/subscriptions`);
       const subscriptions = await response.json();
-      console.log('RESPONSE', subscriptions);
       setSubscriptions(subscriptions);
     })();
   }, []);
@@ -28,9 +27,15 @@ function User() {
   return (
     <>
       <ul>
-        <li>
-          <strong>User Id</strong> {userId}
-        </li>
+        {Object.values(subscriptions).map((subscription) => (
+          <li>
+            {subscription.id}
+            <ul>
+              <li>User: {subscription.username}</li>
+              <li>Level: {subscription.level}</li>
+            </ul>
+          </li>
+        ))}
       </ul>
       <button onClick={() => console.log(subscriptions)}>Click here</button>
     </>

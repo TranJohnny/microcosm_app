@@ -27,7 +27,7 @@ def seed():
 def undo():
     undo_users()
     undo_stories()
-    db.session.execute('TRUNCATE subscription_tiers;')
-    db.session.commit()
+    # db.session.execute('TRUNCATE subscription_tiers;')
+    # db.session.commit()
     undo_formats()
     # Add other undo functions here

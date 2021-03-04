@@ -10,7 +10,7 @@ def seed_stories():
         # superExplorer's Stories
         Story(title="My First Story", author_id=1),
         # negativeNed's Stories
-        Story(title="A Winter's Night", parts=2, author_id=2),
+        Story(title="A Winter's Night", parts=2, author_id=2, tier=2),
         Story(title="The Last Man", author_id=2),
         Story(title="Cold Embrace", author_id=2),
         Story(title="Isolation", author_id=2),

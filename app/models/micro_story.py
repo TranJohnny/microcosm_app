@@ -12,6 +12,7 @@ class Micro_Story(db.Model):
         'stories.id', onupdate="CASCADE", ondelete="CASCADE"), nullable=False)
     format_id = db.Column(db.Integer, db.ForeignKey(
         'formats.id', onupdate="CASCADE", ondelete="CASCADE"), nullable=False)
+    # tier = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime)
 

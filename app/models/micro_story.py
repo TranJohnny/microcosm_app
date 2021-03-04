@@ -17,3 +17,15 @@ class Micro_Story(db.Model):
 
     story = db.relationship("Story", back_populates="micro_stories")
     format = db.relationship("Format", back_populates="micro_stories")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "part": self.part,
+            "content": self.content,
+            "story_id": self.story_id,
+            "format_id": self.format_id,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+        }

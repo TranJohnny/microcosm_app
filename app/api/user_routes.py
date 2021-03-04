@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import User
+from app.models import User, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -17,3 +17,29 @@ def users():
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
+
+@user_routes.route('/<int:id>/subscriptions')
+@login_required
+def subscriptions(id):
+    user = User.query.get(id)
+    subscriptions = user.followed_users().all()
+    print('Hello,', subscriptions)
+    response = {}
+    for each in subscriptions:
+        response[each.to_dict()['id']] = (each.to_dict())
+    return response
+
+
+@user_routes.route('/<int:id>/followers', methods=['POST'])
+@login_required
+def follow_user(id):
+    data = request.json
+    follower = User.query.get(data['id'])
+    user = User.query.get(id)
+    res = follower.follow(user)
+    if res is None:
+        return {"error": "Uh oh, something went wrong."}
+    db.session.add(res)
+    db.session.commit()
+    return {"message": "Follow successful!"}

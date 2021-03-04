@@ -2,6 +2,16 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+followers = db.Table('followers',
+                     db.Column('follower_id', db.Integer,
+                               db.ForeignKey('users.id')),
+                     db.Column('followed_id', db.Integer,
+                               db.ForeignKey('users.id'))
+                     )
 
 
 class User(db.Model, UserMixin):
@@ -19,6 +29,19 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime)
 
+    stories = db.relationship(
+        "Story", back_populates="users", cascade="all, delete-orphan")
+    likes = db.relationship("Like", cascade="all, delete-orphan")
+    comments = db.relationship("Comment", cascade="all, delete-orphan")
+    followed = db.relationship(
+        "User",
+        secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'),
+        lazy='dynamic'
+    )
+
     @property
     def password(self):
         return self.hashed_password
@@ -34,9 +57,32 @@ class User(db.Model, UserMixin):
         return {
             "id": self.id,
             "username": self.username,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
             "email": self.email,
             "coins": self.coins,
             "level": self.level,
             "exp": self.exp,
             "created_at": self.created_at
         }
+
+    def followed_users(self):
+        subscriptions = User.query.join(followers, (followers.c.followed_id == User.id)).filter(followers.c.follower_id == self.id)  # noqa
+        return subscriptions
+
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+            return self
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+            return self
+
+    def is_following(self, user):
+        return self.followed.filter(followers.c.followed_id
+                                    == user.id).count() > 0
+
+    def followed_stories(self):
+        return Story.query.join(followers, (followers.c.followed_id == Story.user_id)).filter(followers.c.follower_id == self.id).order_by(Story.created_at.desc())  # noqa

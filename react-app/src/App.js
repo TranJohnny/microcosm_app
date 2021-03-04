@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import Subscriptions from './components/Subscriptions';
 import { authenticate } from './services/auth';
 
 import { saveUser } from './store/user';
@@ -46,6 +47,13 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
           <User />
+        </ProtectedRoute>
+        <ProtectedRoute
+          path="/users/:userId/subscriptions"
+          exact={true}
+          authenticated={authenticated}
+        >
+          <Subscriptions />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
           <h1>My Home Page</h1>

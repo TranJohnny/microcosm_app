@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
+from .subscription_tier import Subscription_Tier
 
 Base = declarative_base()
 
@@ -73,6 +74,10 @@ class User(db.Model, UserMixin):
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
+            subscription = Subscription_Tier(
+                subscription_id=f'{self.id},{user.id}')
+            db.session.add(subscription)
+            db.session.commit()
             return self
 
     def unfollow(self, user):

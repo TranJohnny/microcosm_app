@@ -9,6 +9,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import Subscriptions from './components/Subscriptions';
 import Timeline from './components/Timeline';
+import Splash from './components/Splash';
 import { authenticate } from './services/auth';
 
 import { saveUser } from './store/user';
@@ -37,6 +38,9 @@ function App() {
     <BrowserRouter>
       <NavBar setAuthenticated={setAuthenticated} />
       <Switch>
+        <Route path="/" exact={true}>
+          <Splash authenticated={authenticated} />
+        </Route>
         <Route path="/login" exact={true}>
           <LoginForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
         </Route>
@@ -56,7 +60,7 @@ function App() {
         >
           <Subscriptions />
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
+        <ProtectedRoute path="/home" exact={true} authenticated={authenticated}>
           <Timeline />
         </ProtectedRoute>
       </Switch>

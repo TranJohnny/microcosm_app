@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import logo from '../logo.png';
 
 function Splash({ authenticated }) {
   if (authenticated) return <Redirect to="/home" />;
@@ -10,7 +11,7 @@ function Splash({ authenticated }) {
         <div class="bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-700 px-4 py-4">
           <div class="md:max-w-6xl md:mx-auto md:flex md:items-center md:justify-between">
             <div class="flex justify-between items-center">
-              <img src="/images/logo.png" className="h-20" alt="Logo" />
+              <img src={logo} className="h-20" alt="Logo" />
               <a href="/" class="inline-block py-2 text-white text-xl font-bold hover:text-red-500">
                 Microcosm
               </a>

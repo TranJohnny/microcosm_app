@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { login, demoLogin } from '../../services/auth';
+import logo from '../logo.png';
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
@@ -43,7 +44,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <img className="mx-auto h-20 w-auto" src="/images/logo.png" alt="Logo" />
+            <img className="mx-auto h-20 w-auto" src={logo} alt="Logo" />
             <h2 className="mt-1 text-center text-3xl font-extrabold text-gray-900">
               Log in to your account
             </h2>

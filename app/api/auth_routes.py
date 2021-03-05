@@ -46,6 +46,13 @@ def login():
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+@auth_routes.route("/demo-login", methods=["GET"])
+def demo_login():
+    user = User.query.filter(User.email == 'demo@aa.io').first()
+    login_user(user)
+    return user.to_dict()
+
+
 @auth_routes.route('/logout')
 def logout():
     """
@@ -64,6 +71,8 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
+            first_name=form.data['firstName'],
+            last_name=form.data['lastName'],
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password']

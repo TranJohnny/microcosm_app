@@ -7,11 +7,11 @@ function Splash({ authenticated }) {
   return (
     <>
       <div>
-        <div class="bg-indigo-600 px-4 py-4">
+        <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-900 px-4 py-4">
           <div class="md:max-w-6xl md:mx-auto md:flex md:items-center md:justify-between">
             <div class="flex justify-between items-center">
               <img src="/images/logo.png" className="h-20" alt="Logo" />
-              <a href="/" class="inline-block py-2 text-white text-xl font-bold">
+              <a href="/" class="inline-block py-2 text-white text-xl font-bold hover:text-red-500">
                 Microcosm
               </a>
               <div class="inline-block cursor-pointer md:hidden">
@@ -23,21 +23,21 @@ function Splash({ authenticated }) {
 
             <div>
               <div class="hidden md:block">
-                <a href="/about" class="inline-block py-1 md:py-4 text-gray-100 mr-6 font-bold">
+                <a
+                  href="/about"
+                  class="inline-block py-1 md:py-4 text-gray-100 hover:text-red-500 mr-6 font-bold"
+                >
                   About Us
                 </a>
               </div>
             </div>
             <div class="hidden md:block">
-              <a
-                href="/login"
-                class="inline-block py-1 md:py-4 text-gray-500 hover:text-gray-100 mr-6"
-              >
+              <a href="/login" class="inline-block py-1 md:py-4 text-white hover:text-red-500 mr-6">
                 Login
               </a>
               <a
                 href="/sign-up"
-                class="inline-block py-2 px-4 text-gray-700 bg-white hover:bg-gray-100 rounded-lg"
+                class="inline-block py-2 px-4 text-gray-700 bg-white hover:bg-red-400 rounded-lg"
               >
                 Sign Up
               </a>
@@ -45,7 +45,7 @@ function Splash({ authenticated }) {
           </div>
         </div>
 
-        <div class="bg-indigo-600 md:overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-900 md:overflow-hidden">
           <div class="px-4 py-20 md:py-4">
             <div class="md:max-w-6xl md:mx-auto">
               <div class="md:flex md:flex-wrap">
@@ -69,12 +69,12 @@ function Splash({ authenticated }) {
                 <div class="md:w-1/2 relative">
                   <div class="hidden md:block">
                     <div
-                      class="-ml-24 -mb-40 absolute left-0 bottom-0 w-40 bg-white rounded-lg shadow-lg px-6 py-8"
+                      class="-ml-24 -mb-40 absolute left-0 bottom-0 w-40 bg-white rounded-lg shadow-lg px-4 py-8"
                       style={{ transform: 'rotate(-8deg)' }}
                     >
                       <div class="text-gray-800 text-center">
-                        On a dark and <br />
-                        stormy night...
+                        Once upon a time, <br />
+                        in a land far away...
                       </div>
                     </div>
 
@@ -82,18 +82,25 @@ function Splash({ authenticated }) {
                       class="ml-24 mb-16 absolute left-0 bottom-0 w-40 bg-white rounded-lg shadow-lg px-6 py-8"
                       style={{ transform: 'rotate(-8deg)', zIndex: '2' }}
                     >
-                      <div class="text-gray-800 text-center">Poems...</div>
+                      <div class="text-gray-800 text-center">
+                        David: <br />
+                        I think- <br />
+                        {''} <br />
+                        Alexis: <br />
+                        Ewwww!
+                      </div>
                     </div>
 
                     <div
-                      class="ml-32 absolute left-0 bottom-0 w-48 bg-white rounded-lg shadow-lg px-10 py-8"
+                      class="ml-32 absolute left-0 bottom-0 w-48 bg-white rounded-lg shadow-lg px-1 py-8"
                       style={{ transform: 'rotate(-8deg)', zIndex: '2', marginBottom: '-220px' }}
                     >
                       <div class="text-gray-800 text-center">
-                        ...of the night <br />
-                        ...of the night <br />
-                        ...of the night <br />
-                        Internet
+                        ...middle of the night. <br />
+                        {''} <br />
+                        Where could we go
+                        <br />
+                        now...?
                       </div>
                     </div>
 

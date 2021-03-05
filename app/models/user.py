@@ -3,6 +3,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
+# from .subscription_tier import Subscription_Tier
+from .micro_story import Micro_Story
+from .story import Story
 
 Base = declarative_base()
 
@@ -10,7 +13,8 @@ followers = db.Table('followers',
                      db.Column('follower_id', db.Integer,
                                db.ForeignKey('users.id')),
                      db.Column('followed_id', db.Integer,
-                               db.ForeignKey('users.id'))
+                               db.ForeignKey('users.id')),
+                     db.Column('tier', db.Integer, default=0)
                      )
 
 
@@ -67,12 +71,23 @@ class User(db.Model, UserMixin):
         }
 
     def followed_users(self):
-        subscriptions = User.query.join(followers, (followers.c.followed_id == User.id)).filter(followers.c.follower_id == self.id)  # noqa
-        return subscriptions
+        return User.query\
+            .join(followers, (followers.c.followed_id == User.id))\
+            .filter(followers.c.follower_id == self.id)  # noqa
+
+    def followed_micro_stories(self):
+        return Micro_Story.query\
+            .join(Story, (Story.id == Micro_Story.story_id))\
+            .join(followers, (Story.author_id == followers.c.followed_id))\
+            .filter(followers.c.follower_id == self.id, followers.c.tier >= Story.tier).order_by(Micro_Story.created_at.desc())  # noqa
 
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
+            # subscription = Subscription_Tier(
+            #     subscription_id=f'{self.id},{user.id}')
+            # db.session.add(subscription)
+            db.session.commit()
             return self
 
     def unfollow(self, user):

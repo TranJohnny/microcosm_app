@@ -24,7 +24,7 @@ def user(id):
 def subscriptions(id):
     user = User.query.get(id)
     subscriptions = user.followed_users().all()
-    print('Hello,', subscriptions)
+    # print('Hello,', subscriptions)
     response = {}
     for each in subscriptions:
         response[each.to_dict()['id']] = (each.to_dict())
@@ -43,3 +43,14 @@ def follow_user(id):
     db.session.add(res)
     db.session.commit()
     return {"message": "Follow successful!"}
+
+
+@user_routes.route('/<int:id>/followed_micro_stories')
+@login_required
+def followed_micro_stories(id):
+    user = User.query.get(id)
+    micro_stories = user.followed_micro_stories().all()
+    # print('Hello,', micro_stories)
+    response = {}
+    list = [micro_story.to_dict() for micro_story in micro_stories]
+    return jsonify(list)

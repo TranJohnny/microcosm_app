@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Subscriptions from './components/Subscriptions';
+import Timeline from './components/Timeline';
 import { authenticate } from './services/auth';
 
 import { saveUser } from './store/user';
@@ -56,7 +57,7 @@ function App() {
           <Subscriptions />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-          <h1>My Home Page</h1>
+          <Timeline />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

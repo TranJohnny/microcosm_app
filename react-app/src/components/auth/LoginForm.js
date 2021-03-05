@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { login, demoLogin } from '../../services/auth';
 import logo from '../logo.png';
+import rocket from '../rocket.svg';
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
@@ -41,7 +42,11 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen flex items-center justify-around bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <img
+          src={rocket}
+          style={{ position: 'absolute', zIndex: '2', top: '-10px', left: '-20px' }}
+        />
         <div className="max-w-md w-full space-y-8">
           <div>
             <img className="mx-auto h-20 w-auto" src={logo} alt="Logo" />

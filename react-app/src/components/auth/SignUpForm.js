@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { signUp, demoLogin } from '../../services/auth';
 import logo from '../logo.png';
+import question from '../question.svg';
+import rocket from '../rocket.svg';
 
 const SignUpForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
@@ -57,7 +59,11 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
+        <img
+          src={rocket}
+          style={{ position: 'absolute', zIndex: '2', top: '-10px', left: '-20px' }}
+        />
+        <div className="max-w-md w-full space-y-8" style={{ zIndex: '3' }}>
           <div>
             <img className="mx-auto h-20 w-auto" src={logo} alt="Logo" />
             <h2 className="mt-1 text-center text-3xl font-extrabold text-gray-900">

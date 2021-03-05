@@ -7,7 +7,7 @@ function Splash({ authenticated }) {
   return (
     <>
       <div>
-        <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-900 px-4 py-4">
+        <div class="bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-700 px-4 py-4">
           <div class="md:max-w-6xl md:mx-auto md:flex md:items-center md:justify-between">
             <div class="flex justify-between items-center">
               <img src="/images/logo.png" className="h-20" alt="Logo" />
@@ -45,13 +45,13 @@ function Splash({ authenticated }) {
           </div>
         </div>
 
-        <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-900 md:overflow-hidden">
+        <div class="bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-700 md:overflow-hidden">
           <div class="px-4 py-20 md:py-4">
             <div class="md:max-w-6xl md:mx-auto">
               <div class="md:flex md:flex-wrap">
                 <div class="md:w-1/2 text-center md:text-left md:pt-16">
                   <h1 class="font-bold text-white text-2xl md:text-5xl leading-tight mb-6">
-                    Quick stories: lasting impact. Explore the microCOSMOS!
+                    Short stories: lasting impact. Explore the microCOSMOS!
                   </h1>
 
                   <p class="text-indigo-200 md:text-xl md:pr-48">
@@ -218,24 +218,40 @@ function Splash({ authenticated }) {
               </div>
             </div>
           </div>
-          <svg
-            viewBox="0 0 500 150"
-            preserveAspectRatio="none"
-            style={{ height: '100%', width: '100%' }}
-          >
-            <path
-              d="M-60.66,70.55 C149.99,150.00 375.00,-6.41 596.22,7.41 L500.00,150.00 L0.00,150.00 Z"
-              style={{ stroke: 'none', fill: 'white' }}
-            ></path>
-          </svg>
+          <div style={{ height: '350px', overflow: 'hidden' }}>
+            <svg
+              className="hidden md:block"
+              viewBox="0 0 500 150"
+              preserveAspectRatio="none"
+              style={{ height: '100%', width: '100%' }}
+              position="absolute"
+            >
+              <path
+                d="M-60.66,70.55 C149.99,150.00 375.00,-6.41 596.22,7.41 L500.00,150.00 L0.00,150.00 Z"
+                style={{ stroke: 'none', fill: 'white' }}
+              ></path>
+            </svg>
+          </div>
         </div>
 
-        <p class="text-right p-4 text-gray-600 pt-10">
-          {'Landing page inspired by designs from '}
-          <a class="border-b text-blue-500" href="https://twitter.com/mithicher" target="_blank">
-            @mithicher
-          </a>
-        </p>
+        <div className="flex justify-between">
+          <p class="text-left p-4 text-gray-600 pt-10">
+            {'An app by '}
+            <a
+              class="border-b text-blue-500"
+              href="https://www.linkedin.com/in/thejohnnytran/"
+              target="_blank"
+            >
+              @JohnnyTran
+            </a>
+          </p>
+          <p class="text-right p-4 text-gray-600 pt-10">
+            {'Landing page inspired by designs from '}
+            <a class="border-b text-blue-500" href="https://twitter.com/mithicher" target="_blank">
+              @mithicher
+            </a>
+          </p>
+        </div>
       </div>
     </>
   );

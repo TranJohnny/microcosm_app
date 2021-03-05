@@ -36,7 +36,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar setAuthenticated={setAuthenticated} />
+      {<NavBar setAuthenticated={setAuthenticated} />}
       <Switch>
         <Route path="/" exact={true}>
           <Splash authenticated={authenticated} />

@@ -6,8 +6,8 @@ export const Splash = ({ authenticated }) => {
 
   return (
     <>
-      <svg></svg>
-      <h1>Splash Page</h1>
+      <h1>Hi</h1>
+      <h1>Splash</h1>
     </>
   );
 };

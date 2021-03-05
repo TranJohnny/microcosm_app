@@ -209,10 +209,10 @@ function Splash({ authenticated }) {
               </div>
             </div>
           </div>
-          <div style={{ height: '350px', overflow: 'hidden' }}>
+          <div>
             <svg
               className="hidden md:block"
-              viewBox="0 0 500 150"
+              viewBox="0 0 500 100"
               preserveAspectRatio="none"
               style={{ height: '100%', width: '100%' }}
               position="absolute"
@@ -224,29 +224,28 @@ function Splash({ authenticated }) {
             </svg>
           </div>
         </div>
-
-        <div className="flex justify-between">
-          <p className="text-left p-4 text-gray-600 pt-10">
-            {'An app by '}
-            <a
-              className="border-b text-blue-500"
-              href="https://www.linkedin.com/in/thejohnnytran/"
-              target="_blank"
-            >
-              @JohnnyTran
-            </a>
-          </p>
-          <p className="text-right p-4 text-gray-600 pt-10">
-            {'Landing page inspired by designs from '}
-            <a
-              className="border-b text-blue-500"
-              href="https://twitter.com/mithicher"
-              target="_blank"
-            >
-              @mithicher
-            </a>
-          </p>
-        </div>
+      </div>
+      <div className="flex justify-between" style={{ position: 'relative', bottom: '-30px' }}>
+        <p className="text-left p-4 text-gray-600 pt-10">
+          {'An app by '}
+          <a
+            className="text-blue-500"
+            href="https://www.linkedin.com/in/thejohnnytran/"
+            target="_blank"
+          >
+            @JohnnyTran
+          </a>
+        </p>
+        <p className="text-right p-4 text-gray-600 pt-10">
+          {'SVGs modified from '}
+          <a className="text-blue-500" href="https://twitter.com/ninaLimpi">
+            @NinaLimpi
+          </a>
+          {'  | Landing page inspired by designs from '}
+          <a className="text-blue-500" href="https://twitter.com/mithicher" target="_blank">
+            @mithicher
+          </a>
+        </p>
       </div>
     </>
   );

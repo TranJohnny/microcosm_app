@@ -238,7 +238,7 @@ function Splash({ authenticated }) {
         </p>
         <p className="text-right p-4 text-gray-600 pt-10">
           {'SVGs modified from '}
-          <a className="text-blue-500" href="https://twitter.com/ninaLimpi">
+          <a className="text-blue-500" href="https://twitter.com/ninaLimpi" target="_blank">
             @NinaLimpi
           </a>
           {'  | Landing page inspired by designs from '}

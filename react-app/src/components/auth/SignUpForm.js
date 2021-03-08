@@ -63,7 +63,10 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
           src={rocket}
           style={{ position: 'absolute', zIndex: '2', top: '-10px', left: '-20px' }}
         />
-        <div className="max-w-md w-full space-y-8" style={{ zIndex: '3' }}>
+        <div
+          className="max-w-md w-full space-y-8 bg-gray-50 bg-opacity-50 rounded-2xl py-5 px-5 ring ring-gray-50 ring-opacity-80"
+          style={{ zIndex: '3' }}
+        >
           <div>
             <img className="mx-auto h-20 w-auto" src={logo} alt="Logo" />
             <h2 className="mt-1 text-center text-3xl font-extrabold text-gray-900">

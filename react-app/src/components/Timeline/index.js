@@ -1,2 +1,2 @@
-import Timeline from './timeline.js';
+import Timeline from './Timeline.js';
 export default Timeline;

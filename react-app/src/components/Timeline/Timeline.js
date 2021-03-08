@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import StoryCard from './StoryCard';
 
 function Timeline() {
   const [microStories, setMicroStories] = useState({});
@@ -23,16 +24,9 @@ function Timeline() {
     <>
       {loaded && (
         <ul>
-          {Object.values(microStories).map((microStory) => {
-            return (
-              <li key={microStory.id}>
-                <ul>
-                  {microStory.title}
-                  <li>{microStory.content}</li>
-                </ul>
-              </li>
-            );
-          })}
+          {Object.values(microStories).map((microStory) => (
+            <StoryCard story={microStory} />
+          ))}
         </ul>
       )}
       <button onClick={() => console.log(loaded)}>Click here</button>

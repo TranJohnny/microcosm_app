@@ -10,6 +10,7 @@ function Splash({ authenticated }) {
   return (
     <>
       <div>
+        {/* Splash Nav Bar */}
         <div className="bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-700 px-4 py-4">
           <div className="md:max-w-6xl md:mx-auto md:flex md:items-center md:justify-between">
             <div className="flex justify-between items-center">

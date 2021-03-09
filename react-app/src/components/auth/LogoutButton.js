@@ -2,13 +2,15 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../services/auth';
 import { logoutUser } from '../../store/user';
+import { resetMicroStories } from '../../store/microStory';
 
 const LogoutButton = ({ setAuthenticated }) => {
   const dispatch = useDispatch();
   const onLogout = async (e) => {
     await logout();
     setAuthenticated(false);
-    dispatch(logoutUser());
+    await dispatch(resetMicroStories());
+    await dispatch(logoutUser());
   };
 
   return (

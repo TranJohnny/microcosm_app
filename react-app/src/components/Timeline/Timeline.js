@@ -30,6 +30,7 @@ function Timeline() {
             ))}
           </div>
         )}
+        {!Object.values(microStories).length && <StoryCard loaded={loaded} />}
         <div>Test 2</div>
       </div>
     </>

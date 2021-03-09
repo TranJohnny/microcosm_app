@@ -15,3 +15,17 @@ class Story(db.Model):
 
     users = db.relationship("User", back_populates="stories")
     micro_stories = db.relationship("Micro_Story", back_populates="story")
+
+    def to_dict(self):
+        dict = {
+            "id": self.id,
+            "title": self.title,
+            "tier": self.tier,
+            "parts": self.parts,
+            "author_id": self.author_id,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+        }
+        if self.users:
+            dict["users"] = self.users.to_public_dict()
+        return dict

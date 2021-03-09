@@ -1,5 +1,7 @@
 from .db import db
+from flask import jsonify
 from datetime import datetime
+# from .app.models import Story
 
 
 class Micro_Story(db.Model):
@@ -20,7 +22,8 @@ class Micro_Story(db.Model):
     format = db.relationship("Format", back_populates="micro_stories")
 
     def to_dict(self):
-        return {
+        # story = Story.query.all()
+        dict = {
             "id": self.id,
             "title": self.title,
             "part": self.part,
@@ -30,3 +33,6 @@ class Micro_Story(db.Model):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
+        if self.story:
+            dict["story"] = self.story.to_dict()
+        return dict

@@ -3,8 +3,14 @@ import { Redirect } from 'react-router-dom';
 import { login, demoLogin } from '../../services/auth';
 import logo from '../logo.png';
 import rocket from '../rocket.svg';
+import { useHistory } from 'react-router-dom';
+import { loadMicroStories } from '../../store/microStory';
+import { useDispatch } from 'react-redux';
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
+  const dispatch = useDispatch();
+
+  const history = useHistory();
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,6 +20,8 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
     const user = await login(email, password);
     if (!user.errors) {
       setAuthenticated(true);
+      dispatch(loadMicroStories(user));
+      history.push('/home');
     } else {
       setErrors(user.errors);
     }
@@ -23,6 +31,8 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
     const user = await demoLogin();
     if (!user.errors) {
       setAuthenticated(true);
+      dispatch(loadMicroStories(user));
+      history.push('/home');
     } else {
       setErrors(user.errors);
     }

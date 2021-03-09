@@ -4,8 +4,11 @@ import { signUp, demoLogin } from '../../services/auth';
 import logo from '../logo.png';
 import question from '../question.svg';
 import rocket from '../rocket.svg';
+import { loadMicroStories } from '../../store/microStory';
+import { useDispatch } from 'react-redux';
 
 const SignUpForm = ({ authenticated, setAuthenticated }) => {
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -20,6 +23,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
       const user = await signUp(firstName, lastName, username, email, password);
       if (!user.errors) {
         setAuthenticated(true);
+        dispatch(loadMicroStories(user));
       }
     }
   };
@@ -47,6 +51,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
     const user = await demoLogin();
     if (!user.errors) {
       setAuthenticated(true);
+      dispatch(loadMicroStories(user));
     } else {
       setErrors(user.errors);
     }

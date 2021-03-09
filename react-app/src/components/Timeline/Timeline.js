@@ -1,35 +1,37 @@
 import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import StoryCard from './StoryCard';
+import { loadMicroStories } from '../../store/microStory';
 
 function Timeline() {
-  const [microStories, setMicroStories] = useState({});
-  const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
+  // const [microStories, setMicroStories] = useState({});
+  const [loaded, setLoaded] = useState(true);
   const currentUser = useSelector((state) => state.user);
+  const microStories = useSelector((state) => state.microStory);
 
   useEffect(() => {
     if (!currentUser) {
       return;
     }
-    const getMicroStories = async () => {
-      const response = await fetch(`/api/users/${currentUser['id']}/followed_micro_stories`);
-      const microStories = await response.json();
-      setMicroStories(microStories);
-    };
-    getMicroStories().then(() => setLoaded(true));
-  }, []);
+    dispatch(loadMicroStories(currentUser)).then(() => setLoaded(true));
+    setLoaded(true);
+  }, [dispatch]);
 
   return (
     <>
-      {loaded && (
-        <ul>
-          {Object.values(microStories).map((microStory) => (
-            <StoryCard story={microStory} />
-          ))}
-        </ul>
-      )}
-      <button onClick={() => console.log(loaded)}>Click here</button>
+      <div className="flex flex-row justify-center justify-between bg-indigo-50">
+        <div>Test</div>
+        {loaded && (
+          <div class="flex flex-col justify-center items-center my-auto">
+            {Object.values(microStories).map((microStory) => (
+              <StoryCard story={microStory} loaded={loaded} />
+            ))}
+          </div>
+        )}
+        <div>Test 2</div>
+      </div>
     </>
   );
 }

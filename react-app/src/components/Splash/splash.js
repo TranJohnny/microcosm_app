@@ -106,7 +106,11 @@ function Splash({ authenticated }) {
                       style={{ transform: 'rotate(-8deg)', zIndex: '2', marginBottom: '-220px' }}
                     >
                       <div className="text-gray-800 text-center">
-                        <img src={reading_book} className="h-24" />
+                        <img
+                          src={reading_book}
+                          className="h-24"
+                          alt="Illustration of reading a book"
+                        />
                         ____ <span className="font-black">____</span> ____ ____ <br />
                         {''} <br />
                         Where could we go
@@ -138,7 +142,11 @@ function Splash({ authenticated }) {
                         </div>
 
                         <div className="flex flex-wrap -mx-4 mb-5 justify-center">
-                          <img src={search_space} className="h-48" />
+                          <img
+                            src={search_space}
+                            className="h-48"
+                            alt="Illustration of reading a book in space"
+                          />
                         </div>
 
                         <h2 className="text-lg text-gray-700 font-bold mb-3">Explore stories</h2>
@@ -233,17 +241,28 @@ function Splash({ authenticated }) {
             className="text-blue-500"
             href="https://www.linkedin.com/in/thejohnnytran/"
             target="_blank"
+            rel="noopener noreferrer"
           >
             @JohnnyTran
           </a>
         </p>
         <p className="text-right p-4 text-gray-600 pt-10">
           {'SVGs modified from '}
-          <a className="text-blue-500" href="https://twitter.com/ninaLimpi" target="_blank">
+          <a
+            className="text-blue-500"
+            href="https://twitter.com/ninaLimpi"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             @NinaLimpi
           </a>
           {'  | Landing page inspired by designs from '}
-          <a className="text-blue-500" href="https://twitter.com/mithicher" target="_blank">
+          <a
+            className="text-blue-500"
+            href="https://twitter.com/mithicher"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             @mithicher
           </a>
         </p>

@@ -1,10 +1,12 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import userReducer from './user';
+import microStoryReducer from './microStory';
 
 const appReducer = combineReducers({
   /* your app’s top-level reducers */
   user: userReducer,
+  microStory: microStoryReducer,
 });
 
 const rootReducer = (state, action) => {

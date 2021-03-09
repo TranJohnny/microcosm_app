@@ -6,7 +6,7 @@ import configureStore from './store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-const store = configureStore({});
+const store = configureStore();
 
 function Root() {
   return (

@@ -58,7 +58,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def to_dict(self):
-        return {
+        dict = {
             "id": self.id,
             "username": self.username,
             "first_name": self.first_name,
@@ -67,6 +67,17 @@ class User(db.Model, UserMixin):
             "coins": self.coins,
             "level": self.level,
             "exp": self.exp,
+            "created_at": self.created_at
+        }
+        if self.followed:
+            dict["followed"] = [user.username for user in self.followed]
+        return dict
+
+    def to_public_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "level": self.level,
             "created_at": self.created_at
         }
 
@@ -78,6 +89,7 @@ class User(db.Model, UserMixin):
     def followed_micro_stories(self):
         return Micro_Story.query\
             .join(Story, (Story.id == Micro_Story.story_id))\
+            .join(User, (User.id == Story.id))\
             .join(followers, (Story.author_id == followers.c.followed_id))\
             .filter(followers.c.follower_id == self.id, followers.c.tier >= Story.tier).order_by(Micro_Story.created_at.desc())  # noqa
 

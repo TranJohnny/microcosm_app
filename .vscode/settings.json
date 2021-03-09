@@ -4,6 +4,7 @@
     "python.linting.enabled": true,
     "python.linting.pycodestyleEnabled": true,
     "cSpell.words": [
+        "noqa",
         "unfollow"
     ]
 }

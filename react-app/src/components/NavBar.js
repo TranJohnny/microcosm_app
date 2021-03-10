@@ -12,7 +12,7 @@ const NavBar = ({ setAuthenticated }) => {
 
   return (
     <>
-      <div className="border-b-2 border-indigo-800 px-4 py-2">
+      <header className="border-b-2 border-indigo-800 px-4 py-2">
         <div className="md:flex md:items-center md:justify-between">
           <div className="flex justify-between items-center">
             <img src={logo} className="h-20" alt="Logo" />
@@ -67,7 +67,7 @@ const NavBar = ({ setAuthenticated }) => {
         <div className={'flow-hidden block md:hidden' + (showNav ? ' hidden' : '')}>
           <LogoutButton setAuthenticated={setAuthenticated} />
         </div>
-      </div>
+      </header>
     </>
   );
 };

@@ -10,6 +10,7 @@ import User from './components/User';
 import Subscriptions from './components/Subscriptions';
 import Timeline from './components/Timeline';
 import Splash from './components/Splash';
+import Story from './components/Story';
 import { authenticate } from './services/auth';
 
 import { saveUser } from './store/user';
@@ -36,34 +37,39 @@ function App() {
 
   return (
     <BrowserRouter>
-      {authenticated && <NavBar setAuthenticated={setAuthenticated} />}
-      <Switch>
-        <Route path="/" exact={true}>
-          <Splash authenticated={authenticated} />
-        </Route>
-        <Route path="/login" exact={true}>
-          <LoginForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
-        </Route>
-        <Route path="/sign-up" exact={true}>
-          <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
-        </Route>
-        <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
-          <UsersList />
-        </ProtectedRoute>
-        <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
-          <User />
-        </ProtectedRoute>
-        <ProtectedRoute
-          path="/users/:userId/subscriptions"
-          exact={true}
-          authenticated={authenticated}
-        >
-          <Subscriptions />
-        </ProtectedRoute>
-        <ProtectedRoute path="/home" exact={true} authenticated={authenticated}>
-          <Timeline />
-        </ProtectedRoute>
-      </Switch>
+      <div className="flex flex-col h-screen">
+        {authenticated && <NavBar setAuthenticated={setAuthenticated} />}
+        <Switch>
+          <Route path="/" exact={true}>
+            <Splash authenticated={authenticated} />
+          </Route>
+          <Route path="/login" exact={true}>
+            <LoginForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+          </Route>
+          <Route path="/sign-up" exact={true}>
+            <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+          </Route>
+          <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
+            <User />
+          </ProtectedRoute>
+          <ProtectedRoute
+            path="/users/:userId/subscriptions"
+            exact={true}
+            authenticated={authenticated}
+          >
+            <Subscriptions />
+          </ProtectedRoute>
+          <ProtectedRoute path="/home" exact={true} authenticated={authenticated}>
+            <Timeline />
+          </ProtectedRoute>
+          <ProtectedRoute path="/stories/:storyId/part/:partNum" authenticated={authenticated}>
+            <Story />
+          </ProtectedRoute>
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 }

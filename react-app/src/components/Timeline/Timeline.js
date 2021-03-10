@@ -28,7 +28,7 @@ function Timeline() {
             <UserSideBar followed={currentUser ? currentUser.followed : []} />
           </div>
         </div>
-        <div className="col-span-2 bg-gray-50 mx-4 my-4 rounded-lg">
+        <div className="col-span-2 bg-gray-50 mx-4 my-4 rounded-lg min-w-min">
           {loaded && (
             <div className="flex flex-col flex-1 justify-center items-center my-auto">
               {Object.values(microStories).map((microStory) => (

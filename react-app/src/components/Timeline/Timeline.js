@@ -17,7 +17,6 @@ function Timeline() {
       return;
     }
     dispatch(loadMicroStories(currentUser)).then(() => setLoaded(true));
-    setLoaded(true);
   }, [dispatch]);
 
   return (
@@ -26,7 +25,7 @@ function Timeline() {
         <div className="col-span-1"></div>
         <div className="flex flex-col col-span-1 flex-1 content-center items-center">
           <div className="fixed">
-            <UserSideBar followed={currentUser.followed} />
+            <UserSideBar followed={currentUser ? currentUser.followed : []} />
           </div>
         </div>
         <div className="col-span-2 bg-gray-50 mx-4 my-4 rounded-lg">

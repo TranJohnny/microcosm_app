@@ -50,6 +50,5 @@ def follow_user(id):
 def followed_micro_stories(id):
     user = User.query.get(id)
     micro_stories = user.followed_micro_stories().all()
-    print('Hello now,', len(micro_stories))
     list = [micro_story.to_dict() for micro_story in micro_stories]
     return jsonify(list)

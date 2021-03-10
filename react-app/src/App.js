@@ -10,6 +10,7 @@ import User from './components/User';
 import Subscriptions from './components/Subscriptions';
 import Timeline from './components/Timeline';
 import Splash from './components/Splash';
+import Story from './components/Story';
 import { authenticate } from './services/auth';
 
 import { saveUser } from './store/user';
@@ -65,7 +66,7 @@ function App() {
             <Timeline />
           </ProtectedRoute>
           <ProtectedRoute path="/stories/:storyId/part/:partNum" authenticated={authenticated}>
-            <Timeline />
+            <Story />
           </ProtectedRoute>
         </Switch>
       </div>

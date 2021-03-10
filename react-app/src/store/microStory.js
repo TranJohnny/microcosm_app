@@ -22,6 +22,13 @@ export const loadMicroStories = (user) => async (dispatch) => {
   return;
 };
 
+export const loadStory = (storyId) => async (dispatch) => {
+  const response = await fetch(`/api/stories/${storyId}`);
+  const microStories = await response.json();
+  await dispatch(save_micro_story(microStories));
+  return;
+};
+
 const initialState = {};
 
 const microStoryReducer = (state = initialState, action) => {

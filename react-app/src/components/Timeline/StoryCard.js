@@ -63,7 +63,7 @@ function StoryCard({ story, loaded }) {
           </div>
           <div className="py-4">
             <a
-              href={`/stories/${story.id}/part/${story.part}`}
+              href={`/stories/${story.story.id}/part/${story.part}`}
               className="block tracking-widest uppercase text-center shadow bg-indigo-600 hover:bg-indigo-700 focus:shadow-outline focus:outline-none text-white text-xs py-3 px-10 rounded"
             >
               Read {story.story.title}

@@ -64,6 +64,9 @@ function App() {
           <ProtectedRoute path="/home" exact={true} authenticated={authenticated}>
             <Timeline />
           </ProtectedRoute>
+          <ProtectedRoute path="/stories/:storyId/part/:partNum" authenticated={authenticated}>
+            <Timeline />
+          </ProtectedRoute>
         </Switch>
       </div>
     </BrowserRouter>

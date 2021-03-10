@@ -20,20 +20,25 @@ function Timeline() {
   }, [dispatch]);
 
   return (
-    <>
-      <div className="flex flex-row justify-center justify-between bg-indigo-50">
-        <div>Test</div>
-        {loaded && (
-          <div class="flex flex-col justify-center items-center my-auto">
-            {Object.values(microStories).map((microStory) => (
-              <StoryCard story={microStory} loaded={loaded} />
-            ))}
-          </div>
-        )}
-        {!Object.values(microStories).length && <StoryCard loaded={loaded} />}
-        <div>Test 2</div>
+    <div className="flex-1 overflow-y-auto">
+      <div className="grid grid-cols-6 justify-center justify-between bg-indigo-50">
+        <div className="col-span-1"></div>
+        <div className="flex flex-col col-span-1 flex-1 content-center items-center">
+          <div className="fixed">Fixed</div>
+        </div>
+        <div className="col-span-2 bg-gray-50 mx-4 my-4 rounded-lg">
+          {loaded && (
+            <div className="flex flex-col flex-1 justify-center items-center my-auto">
+              {Object.values(microStories).map((microStory) => (
+                <StoryCard story={microStory} loaded={loaded} />
+              ))}
+            </div>
+          )}
+          {!Object.values(microStories).length && <StoryCard loaded={loaded} />}
+        </div>
+        <div className="flex-1 col-span-2">Test 2</div>
       </div>
-    </>
+    </div>
   );
 }
 export default Timeline;

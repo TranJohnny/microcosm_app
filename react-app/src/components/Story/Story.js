@@ -18,6 +18,7 @@ function Story() {
       <div>STORY COMPONENT</div>
       {loaded && (
         <>
+          <div>{microStories[partNum - 1].id}</div>
           <div>{microStories[partNum - 1].title}</div>
           <div>{microStories[partNum - 1].content}</div>
         </>

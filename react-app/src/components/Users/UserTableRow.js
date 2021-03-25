@@ -1,7 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { add_followed, remove_followed } from '../../store/user';
 
 const UserTableRow = ({ user }) => {
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
 
   const followUser = async () => {
@@ -14,7 +16,7 @@ const UserTableRow = ({ user }) => {
       body: JSON.stringify(currentUser),
     });
     const res = await response.json();
-    console.log('RESULT', res);
+    dispatch(add_followed(user.username));
   };
 
   const unfollowUser = async () => {
@@ -27,7 +29,7 @@ const UserTableRow = ({ user }) => {
       body: JSON.stringify(currentUser),
     });
     const res = await response.json();
-    console.log('RESULT', res);
+    dispatch(remove_followed(user.username));
   };
 
   return (

@@ -96,9 +96,12 @@ class User(db.Model, UserMixin):
     def follow(self, user):
         if not self.is_following(user):
             self.followed.append(user)
-            # subscription = Subscription_Tier(
-            #     subscription_id=f'{self.id},{user.id}')
-            # db.session.add(subscription)
+            db.session.commit()
+            return self
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
             db.session.commit()
             return self
 

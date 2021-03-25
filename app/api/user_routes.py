@@ -45,6 +45,20 @@ def follow_user(id):
     return {"message": "Follow successful!"}
 
 
+@user_routes.route('/<int:id>/followers', methods=['DELETE'])
+@login_required
+def unfollow_user(id):
+    data = request.json
+    follower = User.query.get(data['id'])
+    user = User.query.get(id)
+    res = follower.unfollow(user)
+    if res is None:
+        return {"error": "Uh oh, something went wrong."}
+    db.session.add(res)
+    db.session.commit()
+    return {"message": "Unfollow successful!"}
+
+
 @user_routes.route('/<int:id>/followed_micro_stories')
 @login_required
 def followed_micro_stories(id):

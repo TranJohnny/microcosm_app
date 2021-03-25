@@ -24,8 +24,8 @@ function Story() {
     <div className="flex-1 overflow-y-auto bg-indigo-50 h-screen">
       {loaded && (
         <>
-          <div className="flex flex-col items-center bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-900 h-3/5 text-center px-24">
-            <h1 className="text-white text-6xl md:py-20 py-6">{microStories[partNumber].title}</h1>
+          <div className="flex flex-col items-center bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-900 h-3/5 text-center py-8 px-24 min-h-min">
+            <h1 className="text-white text-6xl md:py-8 py-6">{microStories[partNumber].title}</h1>
             <div className="bg-indigo-900 lg:w-2/5 w-5/6 w-full text-white text-4xl py-8 px-8 rounded-lg max-h-96 min-w-min overflow-y-auto">
               {microStories[partNumber].content}
             </div>

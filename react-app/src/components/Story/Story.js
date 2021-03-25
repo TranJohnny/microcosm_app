@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import microStoryReducer, { loadStory } from '../../store/microStory';
+import { useParams, useHistory } from 'react-router-dom';
+import { loadStory } from '../../store/microStory';
 
 function Story() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { storyId, partNum } = useParams();
   const [loaded, setLoaded] = useState(false);
@@ -12,15 +13,20 @@ function Story() {
 
   useEffect(() => {
     dispatch(loadStory(storyId)).then(() => setLoaded(true));
-  }, [dispatch]);
+  }, [dispatch, storyId]);
+
+  const updatePartNumber = (n) => {
+    setPartNumber(n);
+    history.replace(`/stories/${storyId}/part/${n + 1}`);
+  };
 
   return (
     <div className="flex-1 overflow-y-auto bg-indigo-50 h-screen">
       {loaded && (
         <>
-          <div className="flex flex-col items-center bg-indigo-800 h-3/5 text-center px-24">
+          <div className="flex flex-col items-center bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-900 h-3/5 text-center px-24">
             <h1 className="text-white text-6xl md:py-20 py-6">{microStories[partNumber].title}</h1>
-            <div className="bg-indigo-900 md:w-1/3 w-5/6 w-full text-white text-4xl py-8 px-8 rounded-lg">
+            <div className="bg-indigo-900 lg:w-2/5 w-5/6 w-full text-white text-4xl py-8 px-8 rounded-lg max-h-96 min-w-min overflow-y-auto">
               {microStories[partNumber].content}
             </div>
           </div>
@@ -29,7 +35,7 @@ function Story() {
               <div className="text-gray-500 font-bold opacity-50">Previous</div>
             ) : (
               <button
-                onClick={() => setPartNumber(Number(partNumber) - 1)}
+                onClick={() => updatePartNumber(Number(partNumber) - 1)}
                 className="text-indigo font-bold hover:text-red-500"
               >
                 Previous
@@ -43,7 +49,7 @@ function Story() {
               <div className="text-gray-500 font-bold opacity-50">Next</div>
             ) : (
               <button
-                onClick={() => setPartNumber(Number(partNumber) + 1)}
+                onClick={() => updatePartNumber(Number(partNumber) + 1)}
                 className="text-indigo font-bold hover:text-red-500"
               >
                 Next

@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import logo from './logo.png';
 
 const NavBar = ({ setAuthenticated }) => {
   const [showNav, setShowNav] = useState(false);
-
-  useEffect(() => {
-    console.log(showNav);
-  }, [showNav]);
 
   return (
     <>

@@ -17,7 +17,7 @@ function Timeline() {
       return;
     }
     dispatch(loadMicroStories(currentUser)).then(() => setLoaded(true));
-  }, [dispatch]);
+  }, [dispatch, currentUser]);
 
   return (
     <div className="flex-1 overflow-y-auto">

@@ -22,7 +22,7 @@ function Timeline() {
   return (
     <div className="flex-1 overflow-y-auto">
       <div className="grid grid-cols-6 justify-center justify-between bg-indigo-50">
-        <div className="col-span-1"></div>
+        <div className="hidden sm:block col-span-1"></div>
         <div className="flex flex-col col-span-1 flex-1 content-center items-center hidden sm:block">
           <div className="fixed">
             <UserSideBar followed={currentUser ? currentUser.followed : []} />

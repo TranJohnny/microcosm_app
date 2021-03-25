@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import { login, demoLogin } from '../../services/auth';
 import logo from '../logo.png';
 import rocket from '../rocket.svg';

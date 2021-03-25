@@ -32,24 +32,27 @@ const NavBar = ({ setAuthenticated }) => {
             </div>
           </div>
           <div className="hidden md:block">
-            <a
-              href="/"
+            <NavLink
+              to="/home"
+              activeClassName="text-red-500"
               className="font-bold inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6"
             >
               Home
-            </a>
-            <a
-              href="/create"
+            </NavLink>
+            <NavLink
+              to="/create"
+              activeClassName="text-red-500"
               className="font-bold inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6"
             >
               Create Story
-            </a>
-            <a
-              href="/users"
+            </NavLink>
+            <NavLink
+              to="/users"
+              activeClassName="text-red-500"
               className="font-bold inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6"
             >
               Search Users
-            </a>
+            </NavLink>
             <LogoutButton setAuthenticated={setAuthenticated} />
           </div>
         </div>

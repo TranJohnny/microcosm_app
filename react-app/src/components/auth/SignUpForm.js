@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { signUp, demoLogin } from '../../services/auth';
 import logo from '../logo.png';
-import question from '../question.svg';
 import rocket from '../rocket.svg';
 import { loadMicroStories } from '../../store/microStory';
 import { useDispatch } from 'react-redux';
@@ -24,7 +23,11 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
       if (!user.errors) {
         setAuthenticated(true);
         dispatch(loadMicroStories(user));
+      } else {
+        setErrors(user.errors);
       }
+    } else {
+      setErrors([...errors, 'Passwords must match.']);
     }
   };
 
@@ -53,7 +56,7 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
       setAuthenticated(true);
       dispatch(loadMicroStories(user));
     } else {
-      setErrors(user.errors);
+      setErrors([user.errors, ...errors]);
     }
   };
 
@@ -88,6 +91,15 @@ const SignUpForm = ({ authenticated, setAuthenticated }) => {
               </button>
             </p>
           </div>
+          {errors.length ? (
+            <div className="rounded-md bg-red-100 border border-gray-300 px-3 py-2">
+              {errors.map((error) => {
+                return <p>{error}</p>;
+              })}
+            </div>
+          ) : (
+            ''
+          )}
           <form className="mt-8 space-y-6" onSubmit={onSignUp}>
             <input type="hidden" name="remember" value="true" />
             <div className="rounded-md shadow-sm -space-y-px">

@@ -40,7 +40,7 @@ const NavBar = ({ setAuthenticated }) => {
               activeClassName="text-red-500"
               className="font-bold inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6"
             >
-              About Us
+              About
             </NavLink>
             <NavLink
               to="/create"
@@ -76,7 +76,7 @@ const NavBar = ({ setAuthenticated }) => {
               activeClassName="text-red-500"
               className="inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6 font-bold"
             >
-              About Us
+              About
             </NavLink>
           </div>
           <div className={'flow-hidden block md:hidden' + (showNav ? ' hidden' : '')}>

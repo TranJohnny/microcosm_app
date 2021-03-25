@@ -26,7 +26,7 @@ function UserSideBar({ followed, user }) {
         <p>Coins: {user.coins}</p>
       </div>
       <div>
-        <p className="font-semibold">Followed</p>
+        <p className="font-semibold my-1">Followed</p>
         {followed &&
           followed.map((user) => {
             return (

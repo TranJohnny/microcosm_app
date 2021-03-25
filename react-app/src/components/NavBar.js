@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import logo from './logo.png';
 
 const NavBar = ({ setAuthenticated }) => {
   const [showNav, setShowNav] = useState(false);
-
-  useEffect(() => {
-    console.log(showNav);
-  }, [showNav]);
 
   return (
     <>
@@ -32,24 +28,27 @@ const NavBar = ({ setAuthenticated }) => {
             </div>
           </div>
           <div className="hidden md:block">
-            <a
-              href="/"
+            <NavLink
+              to="/home"
+              activeClassName="text-red-500"
               className="font-bold inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6"
             >
               Home
-            </a>
-            <a
-              href="/create"
+            </NavLink>
+            <NavLink
+              to="/create"
+              activeClassName="text-red-500"
               className="font-bold inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6"
             >
               Create Story
-            </a>
-            <a
-              href="/users"
+            </NavLink>
+            <NavLink
+              to="/users"
+              activeClassName="text-red-500"
               className="font-bold inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6"
             >
               Search Users
-            </a>
+            </NavLink>
             <LogoutButton setAuthenticated={setAuthenticated} />
           </div>
         </div>

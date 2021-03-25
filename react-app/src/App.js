@@ -11,6 +11,7 @@ import Subscriptions from './components/Subscriptions';
 import Timeline from './components/Timeline';
 import Splash from './components/Splash';
 import Story from './components/Story';
+import Footer from './components/Footer';
 import { authenticate } from './services/auth';
 
 import { saveUser } from './store/user';
@@ -69,6 +70,7 @@ function App() {
             <Story />
           </ProtectedRoute>
         </Switch>
+        {authenticated && <Footer />}
       </div>
     </BrowserRouter>
   );

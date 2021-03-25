@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 function StoryCard({ story, loaded }) {
   if (!story) {
     return (
-      <div className="max-w-lg bg-white shadow-md rounded-lg my-4 mx-auto">
+      <div className="max-w-lg bg-white shadow-md rounded-lg my-4 mx-4">
         <div className="py-4 px-8 mt-3">
           <div className="flex flex-col mb-4">
             <h2 className="text-gray-700 font-semibold text-2xl tracking-wide mb-">
@@ -40,7 +40,7 @@ function StoryCard({ story, loaded }) {
     return <h1>Loading...</h1>;
   } else {
     return (
-      <div className="max-w-lg bg-white shadow-md rounded-lg my-4 mx-auto">
+      <div className="max-w-lg bg-white shadow-md rounded-lg my-4 mx-4">
         <div className="py-4 px-8 mt-3">
           <div className="flex flex-col mb-4">
             <h2 className="text-gray-700 font-semibold text-2xl tracking-wide mb-">

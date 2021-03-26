@@ -36,6 +36,13 @@ const NavBar = ({ setAuthenticated }) => {
               Home
             </NavLink>
             <NavLink
+              to="/about"
+              activeClassName="text-red-500"
+              className="font-bold inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6"
+            >
+              About
+            </NavLink>
+            <NavLink
               to="/create"
               activeClassName="text-red-500"
               className="font-bold inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6"
@@ -55,12 +62,40 @@ const NavBar = ({ setAuthenticated }) => {
         {/* Hidden */}
         <div>
           <div className={'flow-hidden block md:hidden' + (showNav ? ' hidden' : '')}>
-            <a
-              href="/about"
-              className="inline-block py-1 md:py-4 text-gray-100 hover:text-red-500 mr-6 font-bold"
+            <NavLink
+              to="/home"
+              activeClassName="text-red-500"
+              className="inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6 font-bold"
             >
-              About Us
-            </a>
+              Home
+            </NavLink>
+          </div>
+          <div className={'flow-hidden block md:hidden' + (showNav ? ' hidden' : '')}>
+            <NavLink
+              to="/about"
+              activeClassName="text-red-500"
+              className="inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6 font-bold"
+            >
+              About
+            </NavLink>
+          </div>
+          <div className={'flow-hidden block md:hidden' + (showNav ? ' hidden' : '')}>
+            <NavLink
+              to="/create"
+              activeClassName="text-red-500"
+              className="inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6 font-bold"
+            >
+              Create Story
+            </NavLink>
+          </div>
+          <div className={'flow-hidden block md:hidden' + (showNav ? ' hidden' : '')}>
+            <NavLink
+              to="/users"
+              activeClassName="text-red-500"
+              className="inline-block py-1 md:py-4 text-indigo hover:text-red-500 mr-6 font-bold"
+            >
+              Search Users
+            </NavLink>
           </div>
         </div>
         <div className={'flow-hidden block md:hidden' + (showNav ? ' hidden' : '')}>

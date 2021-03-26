@@ -11,7 +11,9 @@ import Subscriptions from './components/Subscriptions';
 import Timeline from './components/Timeline';
 import Splash from './components/Splash';
 import Story from './components/Story';
+import Create from './components/Create';
 import Footer from './components/Footer';
+import About from './components/About';
 import { authenticate } from './services/auth';
 
 import { saveUser } from './store/user';
@@ -47,6 +49,9 @@ function App() {
           <Route path="/login" exact={true}>
             <LoginForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
           </Route>
+          <Route path="/about" exact={true}>
+            <About authenticated={authenticated} />
+          </Route>
           <Route path="/sign-up" exact={true}>
             <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
           </Route>
@@ -68,6 +73,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path="/stories/:storyId/part/:partNum" authenticated={authenticated}>
             <Story />
+          </ProtectedRoute>
+          <ProtectedRoute path="/create" authenticated={authenticated}>
+            <Create />
           </ProtectedRoute>
         </Switch>
         {authenticated && <Footer />}

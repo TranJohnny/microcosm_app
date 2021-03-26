@@ -5,6 +5,7 @@
     "python.linting.pycodestyleEnabled": true,
     "cSpell.words": [
         "noqa",
+        "semibold",
         "unfollow"
     ]
 }

@@ -1,7 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { add_followed, remove_followed } from '../../store/user';
 
 const UserTableRow = ({ user }) => {
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user);
 
   const followUser = async () => {
@@ -14,7 +16,7 @@ const UserTableRow = ({ user }) => {
       body: JSON.stringify(currentUser),
     });
     const res = await response.json();
-    console.log('RESULT', res);
+    dispatch(add_followed(user.username));
   };
 
   const unfollowUser = async () => {
@@ -27,7 +29,7 @@ const UserTableRow = ({ user }) => {
       body: JSON.stringify(currentUser),
     });
     const res = await response.json();
-    console.log('RESULT', res);
+    dispatch(remove_followed(user.username));
   };
 
   return (
@@ -54,7 +56,7 @@ const UserTableRow = ({ user }) => {
         <p className="text-gray-900 whitespace-no-wrap">Level {user.level}</p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">Jan 21, 2020</p>
+        <p className="text-gray-900 whitespace-no-wrap">{user.created_at}</p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         {currentUser.followed.includes(user.username) ? (

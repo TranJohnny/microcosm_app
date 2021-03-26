@@ -21,14 +21,16 @@ function Timeline() {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="grid grid-cols-6 justify-center justify-between bg-indigo-50">
-        <div className="hidden sm:block col-span-1"></div>
-        <div className="flex flex-col col-span-1 flex-1 content-center items-center hidden sm:block">
+      <div className="grid grid-cols-6 justify-center justify-between bg-indigo-50 min-h-full">
+        <div className="hidden xl:block 2xl:col-span-1"></div>
+        <div className="flex flex-col col-span-2 lg:col-span-2 2xl:col-span-1 flex-1 content-center items-center hidden md:block mx-2">
           <div className="fixed">
-            <UserSideBar followed={currentUser ? currentUser.followed : []} />
+            {loaded && (
+              <UserSideBar followed={currentUser ? currentUser.followed : []} user={currentUser} />
+            )}
           </div>
         </div>
-        <div className="col-span-6 sm:col-span-2 bg-gray-50 mx-4 my-4 rounded-lg min-w-min shadow-md">
+        <div className="col-span-6 md:col-span-4 lg:col-span-2 bg-gray-50 mx-4 my-4 rounded-lg min-w-min shadow-md">
           {loaded && (
             <div className="flex flex-col flex-1 justify-center items-center my-auto">
               {Object.values(microStories).map((microStory) => (
@@ -38,7 +40,7 @@ function Timeline() {
           )}
           {!Object.values(microStories).length && <StoryCard loaded={loaded} />}
         </div>
-        <div className="flex-1 col-span-2 hidden sm:block"></div>
+        <div className="flex-1 col-span-2 hidden lg:block"></div>
       </div>
     </div>
   );

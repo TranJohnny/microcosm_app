@@ -33,7 +33,7 @@ function Story() {
           <div className="overflow-hidden h-2 text-xs flex bg-indigo-200">
             <div
               style={{ width: `${(partNum / microStories[partNumber].story.parts) * 100}%` }}
-              className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500 animate-pulse"
+              className="transition-width shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500 animate-pulse"
             ></div>
           </div>
           <div className="flex flex-row items-center justify-around bg-white py-4 shadow-md">

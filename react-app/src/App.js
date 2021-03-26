@@ -50,7 +50,7 @@ function App() {
             <LoginForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
           </Route>
           <Route path="/about" exact={true}>
-            <About />
+            <About authenticated={authenticated} />
           </Route>
           <Route path="/sign-up" exact={true}>
             <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />

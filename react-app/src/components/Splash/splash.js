@@ -11,7 +11,7 @@ function Splash({ authenticated }) {
     <>
       <div>
         {/* Splash Nav Bar */}
-        <div className="bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-700 px-4 py-4">
+        <div className="bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-900 px-4 py-4">
           <div className="md:max-w-6xl md:mx-auto md:flex md:items-center md:justify-between">
             <div className="flex justify-between items-center">
               <img src={logo} className="h-20" alt="Logo" />
@@ -34,7 +34,7 @@ function Splash({ authenticated }) {
                   href="/about"
                   className="inline-block py-1 md:py-4 text-gray-100 hover:text-red-500 mr-6 font-bold"
                 >
-                  About Us
+                  About
                 </a>
               </div>
             </div>
@@ -55,7 +55,7 @@ function Splash({ authenticated }) {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-700 md:overflow-hidden">
+        <div className="bg-gradient-to-r from-purple-900 via-indigo-800 to-blue-900 md:overflow-hidden">
           <div className="px-4 py-20 md:py-4">
             <div className="md:max-w-6xl md:mx-auto">
               <div className="md:flex md:flex-wrap">

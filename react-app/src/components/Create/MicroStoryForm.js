@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const MicroStoryForm = ({ stories, user }) => {
+  const history = useHistory();
+
   const [isNewStory, setIsNewStory] = useState(false);
   const [storyId, setStoryId] = useState();
   const [tier, setTier] = useState();
@@ -35,11 +38,23 @@ const MicroStoryForm = ({ stories, user }) => {
         content,
       }),
     });
-    return await response.json();
+    const res = await response.json();
+    history.push(`/stories/${res['storyId']}/part/1`);
   };
 
-  const addMicroStory = () => {
-    console.log('adding microstory...');
+  const addMicroStory = async () => {
+    const response = await fetch(`/api/stories/${storyId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        microStoryTitle,
+        content,
+      }),
+    });
+    const res = await response.json();
+    history.push(`/stories/${storyId}/part/${res['partId']}`);
   };
 
   return (

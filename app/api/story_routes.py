@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Story, db
+from app.models import Story, Micro_Story, db
 
 story_routes = Blueprint('stories', __name__)
 
@@ -17,7 +17,6 @@ def story(id):
 @login_required
 def create_story():
     data = request.json
-    print(data)
     story = Story(title=data["newStoryTitle"],
                   tier=data["tier"], author_id=data["author_id"])
     db.session.add(story)
@@ -29,19 +28,24 @@ def create_story():
         story_id=story.id, format_id=1)
     db.session.add(micro_story)
     db.session.commit()
-    return {'test': 'test'}
+    return {'Message': 'Success!', "storyId": story.id}
 
 
-@story_routes.route('/<int:storyId>', methods=['PATCH'])
+@story_routes.route('/<int:storyId>', methods=['POST'])
 @login_required
 def update_story(storyId):
-    pass
-    # data = request.json
-    # follower = User.query.get(data['id'])
-    # user = User.query.get(id)
-    # res = follower.follow(user)
-    # if res is None:
-    #     return {"error": "Uh oh, something went wrong."}
-    # db.session.add(res)
-    # db.session.commit()
-    # return {"message": "Follow successful!"}
+    data = request.json
+    print(data)
+    story = Story.query.get(storyId)
+    story.parts += 1
+    db.session.add(story)
+    db.session.commit()
+    micro_story = Micro_Story(
+        title=data["microStoryTitle"],
+        content=data["content"],
+        part=story.parts,
+        story_id=storyId,
+        format_id=1)
+    db.session.add(micro_story)
+    db.session.commit()
+    return {"Message": "Success!", "partId": story.parts}

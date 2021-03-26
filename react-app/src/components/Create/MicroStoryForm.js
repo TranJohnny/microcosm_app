@@ -10,6 +10,7 @@ const MicroStoryForm = ({ stories, user }) => {
   const [newStoryTitle, setNewStoryTitle] = useState('');
   const [microStoryTitle, setMicroStoryTitle] = useState('');
   const [content, setContent] = useState('');
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (storyId === 'Create New Story') {
@@ -24,44 +25,101 @@ const MicroStoryForm = ({ stories, user }) => {
     }
   }, [storyId]);
 
+  useEffect(() => {
+    setErrors([]);
+  }, [storyId, newStoryTitle, microStoryTitle, content]);
+
+  const resetErrors = async () => await setErrors({});
+
   const createStory = async () => {
-    const response = await fetch('/api/stories/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        newStoryTitle,
-        tier,
-        author_id: user.id,
-        microStoryTitle,
-        content,
-      }),
-    });
-    const res = await response.json();
-    history.push(`/stories/${res['storyId']}/part/1`);
+    await resetErrors();
+    if (
+      content.length <= 300 &&
+      content.length > 0 &&
+      newStoryTitle.length &&
+      microStoryTitle.length
+    ) {
+      const response = await fetch('/api/stories/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          newStoryTitle,
+          tier,
+          author_id: user.id,
+          microStoryTitle,
+          content,
+        }),
+      });
+      const res = await response.json();
+      history.push(`/stories/${res['storyId']}/part/1`);
+    }
+    if (content.length > 300) {
+      let newError = Object.assign({}, errors);
+      newError.microStoryError = 'Microstories must be 300 characters or fewer.';
+      setErrors(newError);
+    }
+    if (content.length === 0) {
+      let newError = Object.assign({}, errors);
+      newError.microStoryError = 'Microstories cannot be empty.';
+      setErrors(newError);
+    }
+    if (!newStoryTitle.length) {
+      let newError = Object.assign({}, errors);
+      newError.newStoryTitleError = 'Please provide a Story title.';
+      setErrors(newError);
+    }
+    if (microStoryTitle.length === 0) {
+      let newError = Object.assign({}, errors);
+      newError.microStoryTitleError = 'Please provide a microstory title.';
+      setErrors(newError);
+    }
   };
 
   const addMicroStory = async () => {
-    const response = await fetch(`/api/stories/${storyId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        microStoryTitle,
-        content,
-      }),
-    });
-    const res = await response.json();
-    history.push(`/stories/${storyId}/part/${res['partId']}`);
+    await resetErrors();
+    if (content.length <= 300 && content.length > 0 && microStoryTitle.length > 0 && storyId) {
+      const response = await fetch(`/api/stories/${storyId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          microStoryTitle,
+          content,
+        }),
+      });
+      const res = await response.json();
+      history.push(`/stories/${storyId}/part/${res['partId']}`);
+    }
+    if (content.length > 300) {
+      let newError = Object.assign({}, errors);
+      newError.microStoryError = 'Microstories must be 300 characters or fewer.';
+      setErrors(newError);
+    }
+    if (content.length === 0) {
+      let newError = Object.assign({}, errors);
+      newError.microStoryError = 'Microstories cannot be empty.';
+      setErrors(newError);
+    }
+    if (microStoryTitle.length === 0) {
+      let newError = Object.assign({}, errors);
+      newError.microStoryTitleError = 'Please provide a microstory title.';
+      setErrors(newError);
+    }
+    if (!storyId) {
+      let newError = Object.assign({}, errors);
+      newError.idError = 'Choose an existing story, or create a new one.';
+      setErrors(newError);
+    }
   };
 
   return (
     <>
       <div className="text-center font-bold text-2xl m-5 text-indigo">New Microstory</div>
-      <button onClick={() => console.log(isNewStory, storyId, tier)}>Click</button>
       <div className="bg-white mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
+        {errors.idError && <p className="text-red-400">{errors.idError}</p>}
         <select
           className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
           spellCheck="false"
@@ -81,14 +139,22 @@ const MicroStoryForm = ({ stories, user }) => {
           <option value="Create New Story">Create New Story</option>
         </select>
         {isNewStory && (
-          <input
-            className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
-            spellCheck="false"
-            placeholder="Story Name"
-            type="text"
-            value={newStoryTitle}
-            onChange={(e) => setNewStoryTitle(e.target.value)}
-          />
+          <>
+            {errors.newStoryTitleError && (
+              <p className="text-red-400">{errors.newStoryTitleError}</p>
+            )}
+            <input
+              className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+              spellCheck="false"
+              placeholder="Story Name"
+              type="text"
+              value={newStoryTitle}
+              onChange={(e) => setNewStoryTitle(e.target.value)}
+            />
+          </>
+        )}
+        {errors.microStoryTitleError && (
+          <p className="text-red-400">{errors.microStoryTitleError}</p>
         )}
         <input
           className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
@@ -98,6 +164,7 @@ const MicroStoryForm = ({ stories, user }) => {
           value={microStoryTitle}
           onChange={(e) => setMicroStoryTitle(e.target.value)}
         />
+        {errors.microStoryError && <p className="text-red-400">{errors.microStoryError}</p>}
         <textarea
           className="bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none"
           spellCheck="false"

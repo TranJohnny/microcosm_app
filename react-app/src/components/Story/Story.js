@@ -30,7 +30,13 @@ function Story() {
               {microStories[partNumber].content}
             </div>
           </div>
-          <div className="flex flex-row items-center justify-around bg-gray-300">
+          <div className="overflow-hidden h-2 text-xs flex bg-indigo-200">
+            <div
+              style={{ width: `${(partNum / microStories[partNumber].story.parts) * 100}%` }}
+              className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500 animate-pulse"
+            ></div>
+          </div>
+          <div className="flex flex-row items-center justify-around bg-white py-4 shadow-md">
             {microStories[partNumber].part === 1 ? (
               <div className="text-gray-500 font-bold opacity-50">Previous</div>
             ) : (
@@ -58,7 +64,6 @@ function Story() {
           </div>
         </>
       )}
-      <button onClick={() => console.log(partNumber)}>Click me</button>
     </div>
   );
 }

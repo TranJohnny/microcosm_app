@@ -43,12 +43,12 @@ def seed_micro_stories():
                     format_id=1),
         # Meditation on Trees
         Micro_Story(title="Young Sapling", part=1,
-                    content="Cold winter sapling. So easily trampled now. Rise into the sky.",  # noqa
+                    content="Cold winter sapling.\n So easily trampled now.\n Rise into the sky.",  # noqa
                     story_id=7,
                     format_id=2),
         # Limerick
         Micro_Story(title="Fantastic Mr. Fox", part=1,
-                    content="Boggis, Bunce, and Bean; One fat, one short, one lean. These horrible crooks, so different in looks, are nonetheless equally mean...",  # noqa
+                    content="Boggis, Bunce, and Bean;\n One fat, one short, one lean.\n These horrible crooks, so different in looks, are nonetheless equally mean...",  # noqa
                     story_id=8,
                     format_id=2),
         # Power

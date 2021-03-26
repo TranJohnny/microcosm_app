@@ -15,7 +15,7 @@ function UserSideBar({ followed, user }) {
               </div>
               <div className="text-right">
                 <span className="text-xs font-semibold inline-block text-indigo-600">
-                  {Math.floor(user.exp / 100)}%
+                  {Math.floor((user.exp / 100) * 100)}%
                 </span>
               </div>
             </div>

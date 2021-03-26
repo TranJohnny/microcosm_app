@@ -8,7 +8,7 @@ def seed_users():
 
     demoUsers = [
         User(username='avidWriter', email='demo@aa.io',
-             password='password', first_name='Maya', last_name='Reyn'),
+             password='password', first_name='Maya', last_name='Reyn', exp=45),
         User(username='negativeNed', email='demo1@aa.io',
              password='despondentPoet', first_name='Ned', last_name='Travers'),
         User(username='mightyMight', email='demo2@aa.io',

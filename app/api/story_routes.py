@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Story, Micro_Story, db
+from datetime import datetime
 
 story_routes = Blueprint('stories', __name__)
 
@@ -18,7 +19,7 @@ def story(id):
 def create_story():
     data = request.json
     story = Story(title=data["newStoryTitle"],
-                  tier=data["tier"], author_id=data["author_id"])
+                  tier=data["tier"], author_id=data["author_id"], created_at=datetime.now())
     db.session.add(story)
     db.session.commit()
     db.session.flush()
@@ -45,7 +46,8 @@ def update_story(storyId):
         content=data["content"],
         part=story.parts,
         story_id=storyId,
-        format_id=1)
+        format_id=1,
+        created_at=datetime.now())
     db.session.add(micro_story)
     db.session.commit()
     return {"Message": "Success!", "partId": story.parts}

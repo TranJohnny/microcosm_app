@@ -7,7 +7,6 @@ const UserTableRow = ({ user }) => {
   const currentUser = useSelector((state) => state.user);
 
   const followUser = async () => {
-    console.log(currentUser);
     const response = await fetch(`/api/users/${user.id}/followers`, {
       headers: {
         'Content-Type': 'application/json',
@@ -20,7 +19,6 @@ const UserTableRow = ({ user }) => {
   };
 
   const unfollowUser = async () => {
-    console.log(currentUser);
     const response = await fetch(`/api/users/${user.id}/followers`, {
       headers: {
         'Content-Type': 'application/json',

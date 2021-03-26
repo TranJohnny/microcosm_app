@@ -25,7 +25,6 @@ function User() {
   }
 
   const followUser = async () => {
-    console.log(currentUser);
     const response = await fetch(`/api/users/${userId}/followers`, {
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +33,6 @@ function User() {
       body: JSON.stringify(currentUser),
     });
     const res = await response.json();
-    console.log('RESULT', res);
   };
 
   return (

@@ -37,7 +37,6 @@ function User() {
           </li>
         ))}
       </ul>
-      <button onClick={() => console.log(subscriptions)}>Click here</button>
     </>
   );
 }

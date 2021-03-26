@@ -79,7 +79,6 @@ function UsersList() {
                   </thead>
                   <tbody>
                     {users.map((user) => {
-                      console.log(user);
                       return <UserTableRow user={user} key={user.id} />;
                     })}
                   </tbody>

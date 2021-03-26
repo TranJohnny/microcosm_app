@@ -16,16 +16,20 @@ def story(id):
 @story_routes.route('/', methods=['POST'])
 @login_required
 def create_story():
-    pass
-    # data = request.json
-    # follower = User.query.get(data['id'])
-    # user = User.query.get(id)
-    # res = follower.follow(user)
-    # if res is None:
-    #     return {"error": "Uh oh, something went wrong."}
-    # db.session.add(res)
-    # db.session.commit()
-    # return {"message": "Follow successful!"}
+    data = request.json
+    print(data)
+    story = Story(title=data["newStoryTitle"],
+                  tier=data["tier"], author_id=data["author_id"])
+    db.session.add(story)
+    db.session.commit()
+    db.session.flush()
+    micro_story = Micro_Story(
+        title=data["microStoryTitle"],
+        part=1, content=data["content"],
+        story_id=story.id, format_id=1)
+    db.session.add(micro_story)
+    db.session.commit()
+    return {'test': 'test'}
 
 
 @story_routes.route('/<int:storyId>', methods=['PATCH'])

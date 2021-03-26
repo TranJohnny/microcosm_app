@@ -13,6 +13,7 @@ import Splash from './components/Splash';
 import Story from './components/Story';
 import Create from './components/Create';
 import Footer from './components/Footer';
+import About from './components/About';
 import { authenticate } from './services/auth';
 
 import { saveUser } from './store/user';
@@ -47,6 +48,9 @@ function App() {
           </Route>
           <Route path="/login" exact={true}>
             <LoginForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+          </Route>
+          <Route path="/about" exact={true}>
+            <About />
           </Route>
           <Route path="/sign-up" exact={true}>
             <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />

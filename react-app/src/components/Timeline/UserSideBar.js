@@ -30,11 +30,12 @@ function UserSideBar({ followed, user }) {
         {followed &&
           followed.map((user) => {
             return (
-              <div className="w-full flex items-center flex-col my-1">
+              <div className="w-full flex items-center flex-col my-1" key={user}>
                 <div className="flex bg-white shadow-md p-4 rounded-md items-center">
                   <img
                     src="https://source.unsplash.com/random"
                     className="mr-2 h-10 w-10 rounded-full overflow-hidden relative"
+                    alt="placeholder"
                   ></img>
                   <div className="mb-2 h-7 w-40 min-h-min overflow-hidden relative bg-indigo-600 rounded-md text-center align-center">
                     <span className="text-white">{user}</span>

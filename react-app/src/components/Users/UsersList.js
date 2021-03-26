@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+
 import UserTableRow from './UserTableRow';
 
 function UsersList() {
@@ -13,14 +13,6 @@ function UsersList() {
     }
     fetchData();
   }, []);
-
-  const userComponents = users.map((user) => {
-    return (
-      <li key={user.id}>
-        <NavLink to={`/users/${user.id}`}>{user.username}</NavLink>
-      </li>
-    );
-  });
 
   return (
     <>

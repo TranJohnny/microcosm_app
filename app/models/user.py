@@ -71,15 +71,23 @@ class User(db.Model, UserMixin):
         }
         if self.followed:
             dict["followed"] = [user.username for user in self.followed]
+        if self.stories:
+            dict["stories"] = {}
+            for story in self.stories:
+                dict["stories"][story.id] = {"id": story.id,
+                                             "title": story.title,
+                                             "parts": story.parts,
+                                             "tier": story.tier}
         return dict
 
     def to_public_dict(self):
-        return {
+        dict = {
             "id": self.id,
             "username": self.username,
             "level": self.level,
             "created_at": self.created_at
         }
+        return dict
 
     def followed_users(self):
         return User.query\

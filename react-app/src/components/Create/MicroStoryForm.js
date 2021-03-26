@@ -11,13 +11,18 @@ const MicroStoryForm = ({ stories, user }) => {
       setIsNewStory(true);
     } else {
       setIsNewStory(false);
+      if (storyId && storyId !== 'Create New Story') {
+        setTier(user.stories[storyId].tier);
+      } else {
+        setTier(0);
+      }
     }
   }, [storyId]);
 
   return (
     <>
       <div className="text-center font-bold text-2xl m-5 text-indigo">New Microstory</div>
-      <button onClick={() => console.log(isNewStory, storyId)}>Click</button>
+      <button onClick={() => console.log(isNewStory, storyId, tier)}>Click</button>
       <div className="bg-white mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
         <select
           className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
@@ -65,7 +70,7 @@ const MicroStoryForm = ({ stories, user }) => {
               <select
                 className="ml-0 border bg-white border-gray-400 text-gray-700 focus:bg-gray-50"
                 value={tier}
-                onChange={(e) => setTier(e.target.value)}
+                onChange={(e) => setTier(Number(e.target.value))}
               >
                 <option value={0}>Free Tier</option>
                 <option value={1}>Bronze Tier</option>

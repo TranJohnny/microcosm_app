@@ -4,7 +4,9 @@ const MicroStoryForm = ({ stories, user }) => {
   const [isNewStory, setIsNewStory] = useState(false);
   const [storyId, setStoryId] = useState();
   const [tier, setTier] = useState();
-  const [newStoryTitle, setNewStoryTitle] = useState();
+  const [newStoryTitle, setNewStoryTitle] = useState('');
+  const [microStoryTitle, setMicroStoryTitle] = useState('');
+  const [content, setContent] = useState('');
 
   useEffect(() => {
     if (storyId === 'Create New Story') {
@@ -18,6 +20,27 @@ const MicroStoryForm = ({ stories, user }) => {
       }
     }
   }, [storyId]);
+
+  const createStory = async () => {
+    const response = await fetch('/api/stories/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        newStoryTitle,
+        tier,
+        author_id: user.id,
+        microStoryTitle,
+        content,
+      }),
+    });
+    return await response.json();
+  };
+
+  const addMicroStory = () => {
+    console.log('adding microstory...');
+  };
 
   return (
     <>
@@ -57,11 +80,15 @@ const MicroStoryForm = ({ stories, user }) => {
           spellCheck="false"
           placeholder="Microstory Name"
           type="text"
+          value={microStoryTitle}
+          onChange={(e) => setMicroStoryTitle(e.target.value)}
         />
         <textarea
           className="bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none"
           spellCheck="false"
           placeholder="Write your story here."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         ></textarea>
 
         <div className="flex text-gray-500 m-2 ml-0">
@@ -79,8 +106,10 @@ const MicroStoryForm = ({ stories, user }) => {
               </select>
             )}
           </div>
-          <div className="count ml-auto text-gray-400 text-xs font-semibold align-center">
-            0/300
+          <div className={'count ml-auto text-xs font-semibold align-center'}>
+            <span className={content.length > 300 ? 'text-red-500' : 'text-gray-400'}>
+              {content.length}/300
+            </span>
           </div>
         </div>
 
@@ -88,9 +117,21 @@ const MicroStoryForm = ({ stories, user }) => {
           <div className="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto hover:bg-gray-100">
             Cancel
           </div>
-          <div className="btn border border-indigo-600 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-600 hover:bg-indigo-700">
-            Post
-          </div>
+          {isNewStory ? (
+            <button
+              onClick={createStory}
+              className="btn border border-indigo-600 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-600 hover:bg-indigo-700"
+            >
+              Create Story
+            </button>
+          ) : (
+            <button
+              onClick={addMicroStory}
+              className="btn border border-indigo-600 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-600 hover:bg-indigo-700"
+            >
+              Add to story
+            </button>
+          )}
         </div>
       </div>
     </>

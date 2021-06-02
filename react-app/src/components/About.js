@@ -75,7 +75,7 @@ const About = ({ authenticated }) => {
           </p>
 
           <a
-            href="https://www.linkedin.com/notifications/"
+            href="https://www.linkedin.com/in/thejohnnytran"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white rounded-xl w-1/6 my-8 py-2 text-center font-bold text-indigo hover:bg-indigo-100"
